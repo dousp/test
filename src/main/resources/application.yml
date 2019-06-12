@@ -1,0 +1,15 @@
+spring:
+    redis:
+        host: ENC(P3YjHdhWti/KTkkkALOX0DpePX5ggUQjZwVW3nhbEBjgABU3jssR97QqfUJBifzG)
+        port: ENC(F3TcJA4kzaDJbZOC4WS+20C9WFOteHk+7/g1KZPz84CD6GoP/knE2BNwLkPteFMC)
+        password: ENC(tjVfDITYYVe7uJnI9knJ8Qo1Me5oZmHVhVLBBUwNwh0ZBMGxk9b6B806RtcmGhwN)
+
+
+secret:
+    property: ENC(dpl9kYQl7FmW3mbfl1E/6xZLgowsZIq0s/KI5NzZgBVdQkv4qpsFuSSP2Ort5Uo4)
+
+jasypt:
+    encryptor:
+        bean: encryptorBean
+        algorithm: PBEWITHHMACSHA512ANDAES_256
+        ivGeneratorClassname: org.jasypt.salt.RandomIVGenerator
