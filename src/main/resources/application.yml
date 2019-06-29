@@ -13,3 +13,7 @@ jasypt:
         bean: encryptorBean
         algorithm: PBEWITHHMACSHA512ANDAES_256
         ivGeneratorClassname: org.jasypt.salt.RandomIVGenerator
+
+
+cxf:
+   path=/ws:

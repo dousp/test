@@ -1,4 +1,4 @@
-package com.dou.test.base;
+package com.dou.test.entity;
 
 import lombok.Builder;
 import lombok.Data;
