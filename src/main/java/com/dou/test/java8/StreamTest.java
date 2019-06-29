@@ -1,10 +1,11 @@
 package com.dou.test.java8;
 
-import com.dou.test.base.Person;
-
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 public class StreamTest {
@@ -43,9 +44,27 @@ public class StreamTest {
         // System.out.println(result2);
 
         // limit skip
-        List<Person> personList = Person.buildDemoList().stream().filter(p -> p.getId() > 1000).skip(1).limit(1).collect(Collectors.toList());
-        personList.stream().forEach(person -> System.out.println(person.getName()));
+        // List<Person> personList = Person.buildDemoList().stream().filter(p -> p.getId() > 1000).skip(1).limit(1).collect(Collectors.toList());
+        // personList.stream().forEach(person -> System.out.println(person.getName()));
 
+
+        // for (String s : "hello".split("")) {
+        //     System.out.println(s);
+        // }
+
+        // List<String> words = Arrays.asList("Java 8", "Lambdas", "In", "Action");
+        // words.stream().map(s -> s.split("")).flatMap(Arrays::stream).distinct().collect(Collectors.toList());
+
+        // long uniqueWords = 0;
+        // try (Stream<String> lines = Files.lines(Paths.get("src\\main\\resources\\read.txt"), Charset.defaultCharset())) {
+        //     uniqueWords = lines.flatMap(line -> Arrays.stream(line.split(" "))).distinct().count();
+        //     System.out.println(uniqueWords);
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        //     System.out.println("IOException");
+        // }
+
+        Stream.iterate(new int[]{0,1}, t ->new int[]{t[1], t[0] +t[1]}  ).limit(10).map(t -> t[0]).forEach(System.out::println);
 
     }
 }
