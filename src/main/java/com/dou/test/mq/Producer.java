@@ -2,7 +2,6 @@ package com.dou.test.mq;
 
 import java.util.concurrent.TimeUnit;
 
-import com.dou.test.utils.Constant;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;

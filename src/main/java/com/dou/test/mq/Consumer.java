@@ -1,6 +1,5 @@
 package com.dou.test.mq;
 
-import com.dou.test.utils.Constant;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
