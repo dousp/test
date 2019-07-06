@@ -39,6 +39,9 @@ public class JasyptTest {
         System.out.println("encryptedRedisPW:->"+encryptedRedisPW);
         System.out.println("encryptedRedisPort:->"+encryptedRedisPort);
 
+        System.out.println(encryptorBean.encrypt("47.94.0.34:9876"));
+        System.out.println(encryptorBean.decrypt("SrfiYztMDAVftKTO3Mdgq735pJgBwPFVHf4GdJPDlbGdmJ9erKqmWpGiJli2D7R7"));
+
         // Assert.assertEquals("douspeng", environment.getProperty("secret.property"));
 
         // String message = "douspeng";

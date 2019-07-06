@@ -1,5 +1,6 @@
 package com.dou.test.mq;
 
+import com.dou.test.utils.JasyptUtil;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.MessageQueueSelector;
 import org.apache.rocketmq.client.producer.SendResult;
@@ -20,7 +21,7 @@ public class ProducerInOrder {
     public static void main(String[] args) throws Exception {
         DefaultMQProducer producer = new DefaultMQProducer("ProducerGroupName");
 
-        producer.setNamesrvAddr(Constant.ROCKET_ADDR);
+        producer.setNamesrvAddr(JasyptUtil.mqAddr());
         producer.setInstanceName("ProducerInOrder");
 
         producer.start();

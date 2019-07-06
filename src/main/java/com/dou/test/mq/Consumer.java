@@ -1,5 +1,6 @@
 package com.dou.test.mq;
 
+import com.dou.test.utils.JasyptUtil;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
@@ -21,7 +22,7 @@ public class Consumer {
          * 注意：ConsumerGroupName需要由应用来保证唯一
          */
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("ConsumerGroupName");
-        consumer.setNamesrvAddr(Constant.ROCKET_ADDR);
+        consumer.setNamesrvAddr(JasyptUtil.mqAddr());
         consumer.setInstanceName("Consumer");
 
         /*
