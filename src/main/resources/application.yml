@@ -16,4 +16,4 @@ jasypt:
 
 
 cxf:
-   path=/ws:
+   path: /ws

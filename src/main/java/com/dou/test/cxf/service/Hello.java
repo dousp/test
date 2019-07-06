@@ -1,9 +1,12 @@
 package com.dou.test.cxf.service;
 
+import com.dou.test.entity.xml.TicketRequest;
+
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
 
 /**
  * @author dsp
@@ -14,10 +17,14 @@ import javax.jws.WebService;
 /**
  * 上面package名反过来写
  */
-@WebService(targetNamespace="http://ws.test2.example.com")
+@WebService(targetNamespace="http://service.cxf.test.dou.com")
+@SOAPBinding(style = SOAPBinding.Style.RPC)
 public interface Hello {
 
+    // @WebMethod(operationName = "sayHello", action = "http://service.cxf.test.dou.com/sayHello")
+    // @WebResult(targetNamespace = "http://service.cxf.test.dou.com" )
     @WebMethod
-    @WebResult
-    String sayHello(@WebParam(name = "userName") String userName);
+    @WebResult(name = "request")
+    TicketRequest sayHello(@WebParam(partName = "userName", name = "userName" ) String userName,
+                   @WebParam(name = "passWord" ) String passWord);
 }
