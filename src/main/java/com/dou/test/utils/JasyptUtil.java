@@ -44,7 +44,6 @@ public class JasyptUtil {
         // String str = encrypt("123");
         // System.out.println(str);
         // System.out.println(decrypt(str));
-        System.out.println(decrypt("SrfiYztMDAVftKTO3Mdgq735pJgBwPFVHf4GdJPDlbGdmJ9erKqmWpGiJli2D7R7"));
     }
 
 
