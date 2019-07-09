@@ -6,6 +6,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.List;
+
 /**
  * @author dsp
  * @date 2019-07-06
@@ -26,5 +28,6 @@ public class Customer {
     @Field("company_name")
     private String companyName;
     private Cart cart;
+    private List<Address> addressList;
 
 }
