@@ -1,6 +1,6 @@
 package com.dou.test.controller;
 
-import com.dou.test.entity.Address;
+import com.dou.test.entity.Addr;
 import com.dou.test.entity.Cart;
 import com.dou.test.entity.Customer;
 import com.dou.test.entity.Item;
@@ -93,15 +93,14 @@ public class MongoController {
         Item item = new Item();
         item.setCount(Integer.parseInt(count));
         item.setName(name);
-        Address address = new Address();
-        address.setInfo("朝阳");
+        Addr addr = new Addr();
         Update update = new Update();
         // push会插入一条一样的数据
         update.push("cart.items", item);
-        update.push("addressList", item);
+        update.push("addrList", item);
         // addToSet如果数据已经存在，则不做任何操作
         update.addToSet("cart.items", item);
-        update.addToSet("addressList", address);
+        update.addToSet("addrList", addr);
         return mongotemplate.upsert(query, update, Customer.class);
     }
 
@@ -114,6 +113,52 @@ public class MongoController {
         System.out.println(query.toString());
         System.out.println(update.toString());
         return mongotemplate.updateMulti(query, update, Customer.class);
+    }
+
+    @PostMapping("/addToSet3/{count}")
+    public UpdateResult addToSet3(@PathVariable Integer count){
+        Query query = Query.query(Criteria
+                .where("mobile").is("135")
+                .and("cart.type").is("超市")
+                .and("cart.items.name").is("dd1233")
+        );
+
+        Item item = new Item();
+        item.setCount(count);
+        item.setName("dd1233");
+        item.setPrice(123);
+
+        Update update = new Update();
+        // 不管是否存在都add一条
+        // update.push("cart.items",item);
+
+        // 将items变成了文档不再是数组
+        // update.set("cart.items", item);
+
+        update.set("cart.items.$.count", count);
+        update.set("cart.items.$.price", count);
+
+
+        System.out.println(query.toString());
+        System.out.println(update.toString());
+        return mongotemplate.upsert(query, update, Customer.class);
+    }
+
+    @PostMapping("/addToSet4/{count}")
+    public UpdateResult addToSet4(@PathVariable Integer count){
+        Query query = Query.query(Criteria
+                .where("mobile").is("135")
+                .and("cart.type").is("超市")
+                .and("cart.items.name").is("dd1233")
+                .and("cart.items.addr.area").is("hd")
+        );
+        Update update = new Update();
+        update.set("cart.items.$.addr.$.checker.name", "dd");
+        update.set("cart.items.$.addr.$.checker.id", count);
+
+        System.out.println(query.toString());
+        System.out.println(update.toString());
+        return mongotemplate.upsert(query, update, Customer.class);
     }
 
 

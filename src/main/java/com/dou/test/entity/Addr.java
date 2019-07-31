@@ -9,9 +9,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @date 2019-07-09
  */
 @Data
-@Document(collection = "address")
-public class Address {
+@Document(collection = "addr")
+public class Addr {
     @Id
     private String id;
-    private String info;
+    private String area;
+    private Checker checker;
 }

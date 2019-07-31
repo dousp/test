@@ -15,13 +15,15 @@ public class XmlController {
         return name;
     }
 
-    @PostMapping(value = "/test/xml", consumes = { MediaType.APPLICATION_XML_VALUE }, produces = MediaType.APPLICATION_XML_VALUE)
+    // @PostMapping(value = "/test/xml", consumes = { MediaType.APPLICATION_XML_VALUE }, produces = MediaType.APPLICATION_XML_VALUE)
+    @PostMapping(value = "/test/xml",  produces = MediaType.APPLICATION_XML_VALUE)
     public Object test(@RequestBody TicketRequest ticketRequest) {
         ticketRequest = new TicketRequest("dd",ticketRequest.getPrice()+3);
         return ticketRequest;
     }
 
-    @PostMapping(value = "/test/json", consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    // @PostMapping(value = "/test/json", consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE }, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/test/json",  produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Object testJson(@RequestBody TicketRequest ticketRequest) {
         ticketRequest = new TicketRequest("dd",ticketRequest.getPrice()+3);
         return ticketRequest;
