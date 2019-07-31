@@ -4,19 +4,20 @@ import com.dou.test.entity.Addr;
 import com.dou.test.entity.Cart;
 import com.dou.test.entity.Customer;
 import com.dou.test.entity.Item;
+import com.dou.test.entity.mongo.ProductVo;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.*;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 /**
  * @author dsp
@@ -58,14 +59,14 @@ public class MongoController {
     @PostMapping("/query/{name}")
     public List<Customer> query(@PathVariable String name) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("sex").is(1));
+        query.addCriteria(where("sex").is(1));
         List<Customer> customers = mongotemplate.find(query, Customer.class);
         return customers;
     }
 
     @PostMapping("/query")
     public List<Customer> query() {
-        Query query = Query.query(Criteria.where("mobile").is("135").and("cart.type").is("超市").and("cart.items.name").is("dd123"));
+        Query query = Query.query(where("mobile").is("135").and("cart.type").is("超市").and("cart.items.name").is("dd123"));
         List<Customer> customers = mongotemplate.find(query, Customer.class);
         return customers;
     }
@@ -74,7 +75,7 @@ public class MongoController {
     public String update(@PathVariable String mobile) {
 
         Query query = new Query();
-        query.addCriteria(Criteria.where("mobile").is(mobile));
+        query.addCriteria(where("mobile").is(mobile));
 
         Update update = new Update();
         // update.addToSet("married",11);
@@ -89,7 +90,7 @@ public class MongoController {
 
     @PostMapping("/addToSet/{name}/{count}")
     public UpdateResult addToSet(@PathVariable String name, @PathVariable String count){
-        Query query = Query.query(Criteria.where("mobile").is("135").and("cart.type").is("超市"));
+        Query query = Query.query(where("mobile").is("135").and("cart.type").is("超市"));
         Item item = new Item();
         item.setCount(Integer.parseInt(count));
         item.setName(name);
@@ -106,7 +107,7 @@ public class MongoController {
 
     @PostMapping("/addToSet/{count}")
     public UpdateResult addToSet2(@PathVariable Integer count){
-        Query query = Query.query(Criteria.where("mobile").is("135").and("cart.type").is("超市").and("cart.items.name").is("dd123"));
+        Query query = Query.query(where("mobile").is("135").and("cart.type").is("超市").and("cart.items.name").is("dd123"));
         Update update = new Update();
         update.set("cart.items.$.count", count);
         // update.set("cart.items.count", count);
@@ -117,8 +118,7 @@ public class MongoController {
 
     @PostMapping("/addToSet3/{count}")
     public UpdateResult addToSet3(@PathVariable Integer count){
-        Query query = Query.query(Criteria
-                .where("mobile").is("135")
+        Query query = Query.query(where("mobile").is("135")
                 .and("cart.type").is("超市")
                 .and("cart.items.name").is("dd1233")
         );
@@ -146,8 +146,7 @@ public class MongoController {
 
     @PostMapping("/addToSet4/{count}")
     public UpdateResult addToSet4(@PathVariable Integer count){
-        Query query = Query.query(Criteria
-                .where("mobile").is("135")
+        Query query = Query.query(where("mobile").is("135")
                 .and("cart.type").is("超市")
                 .and("cart.items.name").is("dd1233")
                 .and("cart.items.addr.area").is("hd")
@@ -159,6 +158,41 @@ public class MongoController {
         System.out.println(query.toString());
         System.out.println(update.toString());
         return mongotemplate.upsert(query, update, Customer.class);
+    }
+
+    @GetMapping("/juhe")
+    public void juhe(){
+
+        // Lookup 表关联
+        Field from = Fields.field("prices");
+        Field localField = Fields.field("price");
+        Field foreignField = Fields.field("price");
+        Field as = Fields.field("pri");
+
+        // lookUp
+        AggregationOperation lookUp = new LookupOperation(from, localField, foreignField, as);
+        // match
+        AggregationOperation match1 = new MatchOperation(where("hosp").is("110").and("pri.status").is(0));
+        // unwind
+        AggregationOperation unwindPrices = new UnwindOperation(Fields.field("$pri"));
+        AggregationOperation unwindTags = new UnwindOperation(Fields.field("$tags"));
+        AggregationOperation unwindIndex = new UnwindOperation(Fields.field("$tags.indexs"));
+        // match
+        AggregationOperation match2 = new MatchOperation(where("tags.type_id").is("3").and("tags.indexs.code").is("jy2"));
+        // group
+        GroupOperation groupOperation =
+                new GroupOperation(Fields.from(Fields.field("id", "_id")))
+                        .first("$name").as("name")
+                        .first("$price").as("price")
+                        .first("$hosp").as("hosp")
+                        .first("$tags.type").as("type")
+                        .first("$tags.type_id").as("type_id")
+                        .addToSet("$tags.indexs").as("indexs");
+
+        Aggregation last = Aggregation.newAggregation(lookUp, match1, unwindPrices, unwindTags, unwindIndex, match2, groupOperation);
+        List<ProductVo> list = mongotemplate.aggregate(last,"products", ProductVo.class).getMappedResults();
+        System.out.println(list.size());
+
     }
 
 

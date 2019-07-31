@@ -7,6 +7,7 @@ spring:
         mongodb:
             uri: ENC(VqC8xtO6XZaslRRr09j3B6bfrcUHLgXdi9+wEGBCukp+mLvbIr1iZRo2xMrM4i11/JJO3gw58L6KSOpOc1h133YP6qJh/P4v0gFCzLGmv40=)
 
+logging.level.org.springframework.boot.autoconfigure: ERROR
 
 secret:
     property: ENC(dpl9kYQl7FmW3mbfl1E/6xZLgowsZIq0s/KI5NzZgBVdQkv4qpsFuSSP2Ort5Uo4)

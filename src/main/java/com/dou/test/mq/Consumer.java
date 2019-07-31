@@ -54,9 +54,9 @@ public class Consumer {
                     System.out.println(new String(msg.getBody()));
                 }
             } else if ("TopicTest2".equals(msg.getTopic())) {
-                System.out.println("topic:->" + msg.getTopic() + " || tag:->" + msg.getTags() + " || body:->" + new String(msg.getBody()));
+                System.out.println("topic:->" + msg.getTopic() + " || Tag:->" + msg.getTags() + " || body:->" + new String(msg.getBody()));
             } else if ("TopicTest3".equals(msg.getTopic())) {
-                System.out.println("topic:->" + msg.getTopic() + " || tag:->" + msg.getTags() + " || body:->" + new String(msg.getBody()));
+                System.out.println("topic:->" + msg.getTopic() + " || Tag:->" + msg.getTags() + " || body:->" + new String(msg.getBody()));
             }
 
             return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;

@@ -69,8 +69,8 @@ public class StreamTest {
         //  Stream.iterate(new int[]{0,1}, t ->new int[]{t[1], t[0] +t[1]}  ).limit(10).map(t -> t[0]).forEach(System.out::println);
         //
         //  // 9. anyMatch allMatch noneMatch
-        // boolean tag = personList.stream().anyMatch(Person::isFast);
-        // System.out.println(tag);
+        // boolean Tag = personList.stream().anyMatch(Person::isFast);
+        // System.out.println(Tag);
         //
         // // 10. findAny  findFirst
         // personList.stream().filter(Person::isFast).findAny().ifPresent(person -> System.out.println(person.getName()));
