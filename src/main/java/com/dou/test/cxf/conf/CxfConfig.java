@@ -1,5 +1,6 @@
 package com.dou.test.cxf.conf;
 
+import com.dou.test.cxf.client.LisWsClient;
 import com.dou.test.cxf.service.HelloImpl;
 import org.apache.cxf.Bus;
 import org.apache.cxf.bus.spring.SpringBus;
@@ -7,6 +8,7 @@ import org.apache.cxf.jaxws.EndpointImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.xml.namespace.QName;
 import javax.xml.ws.Endpoint;
 
 /**
@@ -22,12 +24,18 @@ public class CxfConfig {
         return new SpringBus();
     }
 
+    // @Bean
+    // public Endpoint hello() {
+    //     // 绑定要发布的服务实现类
+    //     EndpointImpl endpoint = new EndpointImpl(springBus(), new HelloImpl());
+    //     // 接口访问地址
+    //     endpoint.publish("/hello");
+    //     return endpoint;
+    // }
+
     @Bean
-    public Endpoint hello() {
-        // 绑定要发布的服务实现类
-        EndpointImpl endpoint = new EndpointImpl(springBus(), new HelloImpl());
-        // 接口访问地址
-        endpoint.publish("/hello");
-        return endpoint;
+    public LisWsClient lisWsClient() {
+        LisWsClient client = new LisWsClient("http://192.168.100.212:8080/TransData.asmx?wsdl", new QName("http://www.ikang.com/", "TransData"));
+        return client;
     }
 }

@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLOutput;
 import java.util.*;
+import java.util.function.IntSupplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -78,8 +79,8 @@ public class StreamTest {
         // // 11. reduce
         // int count = personList.stream().map(person -> 1).reduce(0, Integer::sum);
         //
-        // 12. sort
-        personList.stream().sorted(Comparator.comparing(Person::getAge)).forEach(person -> System.out.println(person.getName()));
+        // // 12. sort
+        // personList.stream().sorted(Comparator.comparing(Person::getAge)).forEach(person -> System.out.println(person.getName()));
         //
         // // 13.sorted
         // String traderStr =
@@ -95,21 +96,35 @@ public class StreamTest {
         //         .mapToInt(Person::getAge)
         //         .sum();
         // System.out.println(ageSum);
-
-        // 15. 文件stream
-        long uniqueWords = 0;
-        try (Stream<String> lines = Files.lines(Paths.get("src\\main\\resources\\read.txt"), Charset.defaultCharset())) {
-            uniqueWords = lines.flatMap(line -> Arrays.stream(line.split(" "))).distinct().count();
-            System.out.println(uniqueWords);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("IOException");
-        }
-
-         // 16. iterate
-        Stream.iterate(0, n -> n + 2).limit(10).forEach(System.out::println);
-        // 17. generate
-        Stream.generate(Math::random).limit(5).forEach(System.out::println);
+        //
+        // // 15. 文件stream
+        // long uniqueWords = 0;
+        // try (Stream<String> lines = Files.lines(Paths.get("src\\main\\resources\\read.txt"), Charset.defaultCharset())) {
+        //     uniqueWords = lines.flatMap(line -> Arrays.stream(line.split(" "))).distinct().count();
+        //     System.out.println(uniqueWords);
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        //     System.out.println("IOException");
+        // }
+        //
+        //  // 16. iterate
+        // Stream.iterate(0, n -> n + 2).limit(10).forEach(System.out::println);
+        // // 17. generate
+        // Stream.generate(Math::random).limit(5).forEach(System.out::println);
+        // 18 IntSupplier
+        // IntSupplier intSupplier = new IntSupplier() {
+        //     private int previous = 0;
+        //     private int current = 1;
+        //     @Override
+        //     public int getAsInt() {
+        //         int oldPrevious = this.previous;
+        //         int nextValue = this.previous + this.current;
+        //         this.previous = this.current;
+        //         this.current = nextValue;
+        //         return oldPrevious;
+        //     }
+        // };
+        // IntStream.generate(intSupplier).limit(10).forEach(System.out::println);
 
     }
 }

@@ -28,19 +28,19 @@ public class JasyptTest {
         /**
          * must set jasypt.encryptor.password in your system env
          */
-        String RedisIP = "";
-        String RedisPW = "";
-        String RedisPort = "";
+        // String RedisIP = "";
+        // String RedisPW = "";
+        // String RedisPort = "";
 
-        String encryptedRedisIP = encryptorBean.encrypt(RedisIP);
-        String encryptedRedisPW = encryptorBean.encrypt(RedisPW);
-        String encryptedRedisPort = encryptorBean.encrypt(RedisPort);
-        System.out.println("encryptedRedisIP:->"+encryptedRedisIP);
-        System.out.println("encryptedRedisPW:->"+encryptedRedisPW);
-        System.out.println("encryptedRedisPort:->"+encryptedRedisPort);
+        // String encryptedRedisIP = encryptorBean.encrypt(RedisIP);
+        // String encryptedRedisPW = encryptorBean.encrypt(RedisPW);
+        // String encryptedRedisPort = encryptorBean.encrypt(RedisPort);
+        // System.out.println("encryptedRedisIP:->"+encryptedRedisIP);
+        // System.out.println("encryptedRedisPW:->"+encryptedRedisPW);
+        // System.out.println("encryptedRedisPort:->"+encryptedRedisPort);
 
-        System.out.println(encryptorBean.encrypt("47.94.0.34:9876"));
-        System.out.println(encryptorBean.decrypt("SrfiYztMDAVftKTO3Mdgq735pJgBwPFVHf4GdJPDlbGdmJ9erKqmWpGiJli2D7R7"));
+        // System.out.println(encryptorBean.encrypt("47.94.0.34:9876"));
+        // System.out.println(encryptorBean.decrypt("tjVfDITYYVe7uJnI9knJ8Qo1Me5oZmHVhVLBBUwNwh0ZBMGxk9b6B806RtcmGhwN"));
 
         // Assert.assertEquals("douspeng", environment.getProperty("secret.property"));
 

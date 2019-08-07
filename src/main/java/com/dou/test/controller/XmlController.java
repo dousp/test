@@ -1,13 +1,19 @@
 package com.dou.test.controller;
 
+import com.dou.test.cxf.client.LisWsClient;
 import com.dou.test.entity.xml.TicketRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.Arrays;
 
 @RestController
 @RequestMapping("/xml")
 public class XmlController {
 
+    @Resource
+    LisWsClient lisWsClient;
 
     @GetMapping("/{name}")
     public String hello(@PathVariable("name") String name) {
@@ -27,6 +33,23 @@ public class XmlController {
     public Object testJson(@RequestBody TicketRequest ticketRequest) {
         ticketRequest = new TicketRequest("dd",ticketRequest.getPrice()+3);
         return ticketRequest;
+    }
+
+    @GetMapping("/cxf/test")
+    public String cxfTest(){
+        String _send_userName = "szkw";
+        String _send_passWord = "42516543215";
+        String _send_messagename = "PISLoadData";
+        String _send_parameter = "<request><FilialeCode>84</FilialeCode></request>";
+        Object[] objects;
+        String msg = "";
+        try {
+            objects = lisWsClient.cxfClient().invoke("Send",_send_userName,_send_passWord,_send_messagename,_send_parameter);
+            msg = (String) objects[0];
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return msg;
     }
 
 }
