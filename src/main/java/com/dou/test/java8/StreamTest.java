@@ -17,7 +17,7 @@ import static java.util.stream.Collectors.toList;
 
 public class StreamTest {
 
-    private static List<Person> personList= Person.buildDemoList();
+    private static List<Person> personList = Person.buildDemoList();
 
     public static void main(String[] args) {
 
@@ -125,6 +125,15 @@ public class StreamTest {
         //     }
         // };
         // IntStream.generate(intSupplier).limit(10).forEach(System.out::println);
+
+        // 19.定义收集齐
+        // Map<Boolean, List<Integer>> primeNumbersList = IntStream.rangeClosed(2, 100).boxed()
+        //         .collect(new PrimeNumbersCollector());
+        // primeNumbersList.forEach((aBoolean, integers) -> {
+        //     System.out.println(aBoolean.toString()+":"+integers.size());
+        // });
+
+        // System.out.println(Math.sqrt(6));
 
     }
 }
