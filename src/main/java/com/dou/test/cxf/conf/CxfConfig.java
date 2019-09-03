@@ -24,14 +24,14 @@ public class CxfConfig {
         return new SpringBus();
     }
 
-    // @Bean
-    // public Endpoint hello() {
-    //     // 绑定要发布的服务实现类
-    //     EndpointImpl endpoint = new EndpointImpl(springBus(), new HelloImpl());
-    //     // 接口访问地址
-    //     endpoint.publish("/hello");
-    //     return endpoint;
-    // }
+    @Bean
+    public Endpoint hello() {
+        // 绑定要发布的服务实现类
+        EndpointImpl endpoint = new EndpointImpl(springBus(), new HelloImpl());
+        // 接口访问地址
+        endpoint.publish("/hello");
+        return endpoint;
+    }
 
     @Bean
     public LisWsClient lisWsClient() {

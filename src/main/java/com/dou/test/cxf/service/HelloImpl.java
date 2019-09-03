@@ -13,7 +13,7 @@ import javax.jws.WebService;
 @Component("HelloImpl")
 @WebService(
         //【对外发布的服务名 】：需要见名知意
-        serviceName="helloService",
+        serviceName="hello",
         //【名称空间】：【实现类包名的反缀】
         targetNamespace="http://service.cxf.test.dou.com",
         //【服务接口全路径】  【接口的包名】
@@ -28,5 +28,9 @@ public class HelloImpl implements Hello {
         ticketRequest.setName(userName);
         ticketRequest.setPrice(2);
         return ticketRequest;
+    }
+
+    public String CallNumber(String seq, String time){
+        return "true";
     }
 }

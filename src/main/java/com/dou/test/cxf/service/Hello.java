@@ -27,4 +27,11 @@ public interface Hello {
     @WebResult(name = "request")
     TicketRequest sayHello(@WebParam(partName = "userName", name = "userName" ) String userName,
                    @WebParam(name = "passWord" ) String passWord);
+
+    @WebMethod
+    @WebResult
+    String CallNumber(
+            @WebParam(partName = "seq", name = "seq" ) String seq,
+            @WebParam(partName = "time", name = "time" ) String time
+    );
 }
