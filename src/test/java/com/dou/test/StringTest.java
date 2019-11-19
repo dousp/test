@@ -21,10 +21,12 @@ public class StringTest {
         // String str2 = "DD";
         // System.out.println(str4 == str2);
 
-        int a = 000001;
-        byte i = 01;
-        byte s = 127;
-        s+= 1;
-        System.out.println(s);
+        // int a = 000001;
+        // byte i = 01;
+        // byte s = 127;
+        // s+= 1;
+        // System.out.println(s);
+
+        System.out.println(Runtime.getRuntime().availableProcessors());
     }
 }
