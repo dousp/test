@@ -41,6 +41,7 @@ public class JasyptTest {
 
         // System.out.println(encryptorBean.encrypt("47.94.0.34:9876"));
         // System.out.println(encryptorBean.decrypt("tjVfDITYYVe7uJnI9knJ8Qo1Me5oZmHVhVLBBUwNwh0ZBMGxk9b6B806RtcmGhwN"));
+        // System.out.println(encryptorBean.decrypt("VqC8xtO6XZaslRRr09j3B6bfrcUHLgXdi9+wEGBCukp+mLvbIr1iZRo2xMrM4i11/JJO3gw58L6KSOpOc1h133YP6qJh/P4v0gFCzLGmv40="));
 
         // Assert.assertEquals("douspeng", environment.getProperty("secret.property"));
 
