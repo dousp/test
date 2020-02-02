@@ -2,6 +2,7 @@ package com.dou.test.controller;
 
 import com.dou.test.cxf.client.LisWsClient;
 import com.dou.test.entity.xml.TicketRequest;
+import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,21 @@ public class XmlController {
     public String hello(@PathVariable("name") String name) {
         System.out.println("hello");
         return name;
+    }
+
+    @GetMapping("/call")
+    public String hello2() {
+        String result = "false";
+        JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+        try {
+            Object[] objects = dcf
+                    .createClient("http://localhost:8080/ws/hello?wsdl")
+                    .invoke("CallNumber","asd","1990-01-01");
+            result = (String)objects[0];
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     // @PostMapping(value = "/test/xml", consumes = { MediaType.APPLICATION_XML_VALUE }, produces = MediaType.APPLICATION_XML_VALUE)

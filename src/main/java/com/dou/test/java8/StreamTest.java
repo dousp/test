@@ -1,5 +1,7 @@
 package com.dou.test.java8;
 
+import com.dou.test.entity.Checker;
+import com.dou.test.entity.Customer;
 import com.dou.test.entity.Person;
 
 import java.io.IOException;
@@ -17,7 +19,7 @@ import static java.util.stream.Collectors.toList;
 
 public class StreamTest {
 
-    private static List<Person> personList= Person.buildDemoList();
+    private static List<Person> personList = Person.buildDemoList();
 
     public static void main(String[] args) {
 
@@ -43,14 +45,44 @@ public class StreamTest {
         //  IntStream.range(1, 3).forEach(System.out::println);
         //  IntStream.rangeClosed(1, 3).forEach(System.out::println);
         //
-        //  // 5. joining
-        //  List<String> listJoining = Arrays.asList("A","B","C","D");
-        //  String result0=  listJoining.stream().collect(Collectors.joining());
-        //  String result1=  listJoining.stream().collect(Collectors.joining("-"));
-        //  String result2=  listJoining.stream().collect(Collectors.joining("-","[","]"));
-        //  System.out.println(result0);
-        //  System.out.println(result1);
-        //  System.out.println(result2);
+         // 5. joining
+         // List<String> listJoining = Arrays.asList("A","B","C","D");
+         // String result0=  listJoining.stream().collect(Collectors.joining());
+         // String result1=  listJoining.stream().collect(Collectors.joining("-"));
+         // String result2=  listJoining.stream().collect(Collectors.joining("-","[","]"));
+         // System.out.println(result0);
+         // System.out.println(result1);
+         // System.out.println(result2);
+
+        Checker c1 = new Checker();
+        c1.setName("dd");
+        Checker c2 = new Checker();
+        c2.setName("dd2");
+        Checker c3 = new Checker();
+        c3.setName("dd3");
+        List<Checker> checkerList = new ArrayList<>();
+        checkerList.add(c1);
+        checkerList.add(c2);
+        checkerList.add(c3);
+
+        Customer customer1 = new Customer();
+        customer1.setName("dd2");
+        Customer customer2 = new Customer();
+        customer2.setName("dd3");
+        List<Customer> customerList = new ArrayList<>();
+        customerList.add(customer1);
+        customerList.add(customer2);
+
+        List<Checker> list = checkerList.stream()
+                .map(s->customerList.stream()
+                                .filter(e->s.getName().equals(e.getName()))
+                                .findAny().map(m -> s).orElse(null))
+                .filter(Objects::nonNull).collect(Collectors.toList());
+
+        for (Checker checker : list) {
+            System.out.println(checker.getName());
+        }
+
         //
         //  // 6. limit skip
         //  List<Person> personList = personList.stream().filter(p -> p.getId() > 1000).skip(1).limit(1).collect(toList());
@@ -125,6 +157,15 @@ public class StreamTest {
         //     }
         // };
         // IntStream.generate(intSupplier).limit(10).forEach(System.out::println);
+
+        // 19.定义收集齐
+        // Map<Boolean, List<Integer>> primeNumbersList = IntStream.rangeClosed(2, 100).boxed()
+        //         .collect(new PrimeNumbersCollector());
+        // primeNumbersList.forEach((aBoolean, integers) -> {
+        //     System.out.println(aBoolean.toString()+":"+integers.size());
+        // });
+
+        // System.out.println(Math.sqrt(6));
 
     }
 }

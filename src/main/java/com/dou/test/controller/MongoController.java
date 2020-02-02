@@ -138,7 +138,6 @@ public class MongoController {
         Update update = new Update();
         // 不管是否存在都add一条
         // update.push("cart.items",item);
-
         // 将items变成了文档不再是数组
         // update.set("cart.items", item);
 
@@ -209,5 +208,21 @@ public class MongoController {
         System.out.println(list.size());
     }
 
+    /**
+     * 更新数组全部元素
+     * @param count
+     * @return
+     */
+    @PostMapping("/update/collection/{count}")
+    public UpdateResult updateCollection(@PathVariable Integer count){
+        Query query = Query.query(where("mobile").is("135")
+                .and("cart.type").is("超市")
+                .and("cart.items.price").gt(1)
+        );
+        Update update = new Update();
+        update.set("cart.items.$[].count", count);
+
+        return mongotemplate.upsert(query, update, Customer.class);
+    }
 
 }
