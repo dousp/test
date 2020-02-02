@@ -1,5 +1,8 @@
 package com.dou.test.controller;
 
+import com.dou.test.dao.ApplySearch;
+import com.dou.test.dao.CustomerCollectSampleDto;
+import com.dou.test.dao.MongoDao;
 import com.dou.test.entity.Addr;
 import com.dou.test.entity.Cart;
 import com.dou.test.entity.Customer;
@@ -8,7 +11,6 @@ import com.dou.test.entity.mongo.ProductVo;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.*;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +29,12 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 @RequestMapping("/mongo")
 public class MongoController {
     @Resource
+    MongoDao mongoDao;
+
+    @Resource
     MongoTemplate mongotemplate;
+
+
 
     @PostMapping("/insert")
     public Customer insert() {
@@ -195,6 +202,12 @@ public class MongoController {
 
     }
 
+    @GetMapping("juhe2")
+    public void juhe2(){
+        ApplySearch search = new ApplySearch("750",null,null, "2019-04-01 00:00:00", "2019-04-30 23:59:59");
+        List<CustomerCollectSampleDto> list = mongoDao.findAlreadyCollectSample2(search);
+        System.out.println(list.size());
+    }
 
 
 }

@@ -5,7 +5,8 @@ spring:
         password: ENC(tjVfDITYYVe7uJnI9knJ8Qo1Me5oZmHVhVLBBUwNwh0ZBMGxk9b6B806RtcmGhwN)
     data:
         mongodb:
-            uri: ENC(VqC8xtO6XZaslRRr09j3B6bfrcUHLgXdi9+wEGBCukp+mLvbIr1iZRo2xMrM4i11/JJO3gw58L6KSOpOc1h133YP6qJh/P4v0gFCzLGmv40=)
+#            uri: ENC(VqC8xtO6XZaslRRr09j3B6bfrcUHLgXdi9+wEGBCukp+mLvbIr1iZRo2xMrM4i11/JJO3gw58L6KSOpOc1h133YP6qJh/P4v0gFCzLGmv40=)
+            uri: mongodb://test:123456@127.0.0.1:27017/test
 
 logging.level.org.springframework.boot.autoconfigure: ERROR
 
@@ -21,3 +22,6 @@ jasypt:
 
 cxf:
    path: /ws
+
+logging:
+    config: classpath:logback-spring.xml
