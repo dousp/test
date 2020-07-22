@@ -403,8 +403,12 @@ public class QRCodeUtil {
         //         "本码检完之前可多次使用哈哈" +
         //         "本码检完之前可多次使用哈哈"), "png", qrCodeFile);
 
-        FileOutputStream fileOutputStream = new FileOutputStream("C:\\Users\\Administrator\\Desktop\\note1.png");
-        QRCodeUtil.buildSmartBoxCode("qwert","12312312313123131","png",fileOutputStream);
+        // FileOutputStream fileOutputStream = new FileOutputStream("C:\\Users\\Administrator\\Desktop\\note1.png");
+        // QRCodeUtil.buildSmartBoxCode("qwert","12312312313123131","png",fileOutputStream);
+
+        // String text = DigestUtils.md5DigestAsHex(("12345678"+"18513107567").getBytes());
+        String text = DigestUtils.md5DigestAsHex(("12345678"+"18888888888").getBytes());
+        System.out.println(text);
     }
 
     @Deprecated
