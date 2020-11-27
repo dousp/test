@@ -2,11 +2,9 @@ package com.dou.test;
 
 import com.dou.test.redis.distributed.one.RateLimit;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -19,7 +17,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author dsp
  * @date 2019-08-19
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
 @Slf4j
 public class RedisLimitTest {
