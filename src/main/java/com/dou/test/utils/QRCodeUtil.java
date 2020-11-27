@@ -1,4 +1,4 @@
-package com.dou.test.common;
+package com.dou.test.utils;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
@@ -20,7 +20,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigInteger;
@@ -110,7 +109,7 @@ public class QRCodeUtil {
         }
 
         public LuminanceSource crop(int left, int top, int width, int height) {
-            return new com.dou.test.common.QRCodeUtil.BufferedImageLuminanceSource(image, this.left + left, this.top + top, width, height);
+            return new QRCodeUtil.BufferedImageLuminanceSource(image, this.left + left, this.top + top, width, height);
         }
 
         public boolean isRotateSupported() {
@@ -121,12 +120,12 @@ public class QRCodeUtil {
             int sourceWidth = image.getWidth();
             int sourceHeight = image.getHeight();
             AffineTransform transform = new AffineTransform(0.0, -1.0, 1.0, 0.0, 0.0, sourceWidth);
-            BufferedImage rotatedImage = new BufferedImage(sourceWidth,sourceHeight, BufferedImage.TYPE_BYTE_GRAY);
+            BufferedImage rotatedImage = new BufferedImage(sourceWidth, sourceHeight, BufferedImage.TYPE_BYTE_GRAY);
             Graphics2D g = rotatedImage.createGraphics();
             g.drawImage(image, transform, null);
             g.dispose();
             int width = getWidth();
-            return new com.dou.test.common.QRCodeUtil.BufferedImageLuminanceSource(rotatedImage, top, sourceWidth - (left + width), getHeight(), width);
+            return new QRCodeUtil.BufferedImageLuminanceSource(rotatedImage, top, sourceWidth - (left + width), getHeight(), width);
         }
 
     }
@@ -260,9 +259,9 @@ public class QRCodeUtil {
         ==============================================================================
      */
 
-    public static String GenerateGUID(){
+    public static String GenerateGUID() {
         UUID uuid = UUID.randomUUID();
-        return  uuid.toString().toUpperCase().replaceAll("-","");
+        return uuid.toString().toUpperCase().replaceAll("-", "");
     }
 
     public static StringBuilder getMD5(String dataStr, String slat) {
@@ -285,7 +284,7 @@ public class QRCodeUtil {
         return md5code;
     }
 
-    public static void buildSmartBoxCode(String content, String note, String imageType, OutputStream outputStream){
+    public static void buildSmartBoxCode(String content, String note, String imageType, OutputStream outputStream) {
         try {
             BufferedImage image = qrCodeWithNoteImage(content, note);
             ImageIO.write(image, imageType, outputStream);
@@ -294,7 +293,7 @@ public class QRCodeUtil {
         }
     }
 
-    public static void buildSmartBoxCode(String content, String note, String imageType, ImageOutputStream imageOutputStream){
+    public static void buildSmartBoxCode(String content, String note, String imageType, ImageOutputStream imageOutputStream) {
         try {
             BufferedImage image = qrCodeWithNoteImage(content, note);
             ImageIO.write(image, imageType, imageOutputStream);
@@ -303,19 +302,19 @@ public class QRCodeUtil {
         }
     }
 
-    private static BufferedImage qrCodeWithNoteImage(String content, String note){
-        BufferedImage qrCode = qrCodeImage(content,null);
+    private static BufferedImage qrCodeWithNoteImage(String content, String note) {
+        BufferedImage qrCode = qrCodeImage(content, null);
         BufferedImage noteImage = noteImage(note);
-        BufferedImage image = new BufferedImage(QR_CODE_WIDTH*2, QR_CODE_HEIGHT, BufferedImage.TYPE_INT_RGB);
+        BufferedImage image = new BufferedImage(QR_CODE_WIDTH * 2, QR_CODE_HEIGHT, BufferedImage.TYPE_INT_RGB);
         Graphics2D imageGraphics = image.createGraphics();
-        imageGraphics.drawImage(qrCode,0,0,QR_CODE_WIDTH,QR_CODE_HEIGHT,null);
-        imageGraphics.drawImage(noteImage,QR_CODE_WIDTH,0,QR_CODE_WIDTH,QR_CODE_HEIGHT,null);
+        imageGraphics.drawImage(qrCode, 0, 0, QR_CODE_WIDTH, QR_CODE_HEIGHT, null);
+        imageGraphics.drawImage(noteImage, QR_CODE_WIDTH, 0, QR_CODE_WIDTH, QR_CODE_HEIGHT, null);
         imageGraphics.dispose();
         image.flush();
         return image;
     }
 
-    private static BufferedImage qrCodeImage(String content,BufferedImage logo){
+    private static BufferedImage qrCodeImage(String content, BufferedImage logo) {
         BufferedImage qrImage = new BufferedImage(QR_CODE_WIDTH, QR_CODE_HEIGHT, BufferedImage.TYPE_INT_RGB);
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         // 参数顺序分别为：编码内容，编码类型，生成图片宽度，生成图片高度，设置参数
@@ -332,7 +331,7 @@ public class QRCodeUtil {
             e.printStackTrace();
         }
 
-        if(null != logo){
+        if (null != logo) {
             Graphics2D logoGraphics2D = qrImage.createGraphics();
             logoGraphics2D.drawImage(
                     logo, QR_CODE_WIDTH * 2 / 5, QR_CODE_HEIGHT * 2 / 5,
@@ -344,7 +343,7 @@ public class QRCodeUtil {
         return qrImage;
     }
 
-    private static BufferedImage noteImage(String note){
+    private static BufferedImage noteImage(String note) {
         BufferedImage noteImage = new BufferedImage(QR_CODE_WIDTH, QR_CODE_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);
         if (null == note || "".equals(note)) {
             return noteImage;
@@ -356,25 +355,25 @@ public class QRCodeUtil {
         noteImageGraphics.setColor(Color.BLACK);
         noteImageGraphics.setFont(new Font("微软雅黑", Font.BOLD, 30));
         int gap = 5;
-        noteImageGraphics = autoNote(noteImageGraphics, note, QR_CODE_WIDTH, gap,0);
+        noteImageGraphics = autoNote(noteImageGraphics, note, QR_CODE_WIDTH, gap, 0);
         noteImageGraphics.dispose();
         noteImage.flush();
         return noteImage;
     }
 
-    private static Graphics2D autoNote(Graphics2D graphics2D, String note, int imageWidth, int gap, int n){
+    private static Graphics2D autoNote(Graphics2D graphics2D, String note, int imageWidth, int gap, int n) {
         int strWidth = graphics2D.getFontMetrics().stringWidth(note);
         int strHeight = graphics2D.getFontMetrics().getHeight();
-        n = n+1;
-        int y = strHeight * n + gap  * (n - 1);
-        int x = imageWidth / graphics2D.getFont().getSize() -1;
-        int indentation = graphics2D.getFont().getSize()/2;
-        if(strWidth > (imageWidth -1)){
+        n = n + 1;
+        int y = strHeight * n + gap * (n - 1);
+        int x = imageWidth / graphics2D.getFont().getSize() - 1;
+        int indentation = graphics2D.getFont().getSize() / 2;
+        if (strWidth > (imageWidth - 1)) {
             String note1 = note.substring(0, x);
             String note2 = note.substring(x);
             graphics2D.drawString(note1, indentation, y);
             return autoNote(graphics2D, note2, imageWidth, gap, n);
-        }else{
+        } else {
             graphics2D.drawString(note, indentation, y);
             return graphics2D;
         }
@@ -407,7 +406,7 @@ public class QRCodeUtil {
         // QRCodeUtil.buildSmartBoxCode("qwert","12312312313123131","png",fileOutputStream);
 
         // String text = DigestUtils.md5DigestAsHex(("12345678"+"18513107567").getBytes());
-        String text = DigestUtils.md5DigestAsHex(("12345678"+"18888888888").getBytes());
+        String text = DigestUtils.md5DigestAsHex(("12345678" + "18888888888").getBytes());
         System.out.println(text);
     }
 
@@ -421,7 +420,7 @@ public class QRCodeUtil {
         String destPath = "C:\\Users\\Administrator\\Desktop\\test.jpg";
         //生成二维码
         // QRCodeUtil.encode(true, text, destPath);
-        QRCodeUtil.encode( "2482cf62feb6503c6e13659a563b8917", imgPath, destPath, true );
+        QRCodeUtil.encode("2482cf62feb6503c6e13659a563b8917", imgPath, destPath, true);
         // 解析二维码
         String str = QRCodeUtil.decode(destPath);
         // 打印出解析出的内容

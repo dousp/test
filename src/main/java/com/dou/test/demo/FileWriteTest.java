@@ -15,6 +15,7 @@ import java.util.stream.Stream;
  * @date 2019-10-12
  */
 public class FileWriteTest {
+
     public static void main(String[] args) {
         try (Stream<String> lines = Files.lines(Paths.get("src\\main\\resources\\123.json"), Charset.defaultCharset())) {
             List<String> list= lines.filter(s -> !(s.trim().startsWith("/*"))).map(e->e.trim().equals("")? ",": e).collect(Collectors.toList());

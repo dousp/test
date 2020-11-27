@@ -16,13 +16,14 @@ public class JasyptUtil {
     public static StringEncryptor stringEncryptor() {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
-        config.setPassword(System.getenv("jasypt.encryptor.password"));
+        config.setPassword("password");
+        // config.setPassword(System.getenv("jasypt.encryptor.password"));
         config.setAlgorithm("PBEWITHHMACSHA512ANDAES_256");
         config.setKeyObtentionIterations("1000");
         config.setPoolSize("1");
         config.setProviderName("SunJCE");
         config.setSaltGeneratorClassName("org.jasypt.salt.RandomSaltGenerator");
-        config.setIvGeneratorClassName("org.jasypt.salt.RandomIVGenerator");
+        config.setIvGeneratorClassName("org.jasypt.iv.RandomIvGenerator");
         config.setStringOutputType("base64");
         encryptor.setConfig(config);
         return encryptor;
@@ -41,9 +42,9 @@ public class JasyptUtil {
     }
 
     public static void main(String[] args) {
-        // String str = encrypt("123");
-        // System.out.println(str);
-        // System.out.println(decrypt(str));
+        String str = encrypt("123456");
+        System.out.println(str);
+        System.out.println(decrypt(str));
     }
 
 
