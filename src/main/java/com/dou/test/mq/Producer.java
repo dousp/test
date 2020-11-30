@@ -1,6 +1,5 @@
 package com.dou.test.mq;
 
-import com.dou.test.utils.JasyptUtil;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
@@ -31,7 +30,7 @@ public class Producer {
          * 因为服务器会回查这个Group下的任意一个Producer
          */
         final DefaultMQProducer producer = new DefaultMQProducer("ProducerGroupName");
-        producer.setNamesrvAddr(JasyptUtil.mqAddr());
+        producer.setNamesrvAddr("ip....");
         producer.setInstanceName("Producer");
 
         /**

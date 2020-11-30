@@ -1,6 +1,5 @@
 package com.dou.test.mq;
 
-import com.dou.test.utils.JasyptUtil;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
@@ -21,7 +20,7 @@ public class Consumer1 {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("please_rename_unique_group_name");
 
         // 设置NameServer的地址
-        consumer.setNamesrvAddr(JasyptUtil.mqAddr());
+        consumer.setNamesrvAddr("ip....");
 
         // 订阅一个或者多个Topic，以及Tag来过滤需要消费的消息
         consumer.subscribe("TopicTest", "*");

@@ -1,6 +1,5 @@
 package com.dou.test.mq;
 
-import com.dou.test.utils.JasyptUtil;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.remoting.common.RemotingHelper;
@@ -10,11 +9,11 @@ import org.apache.rocketmq.remoting.common.RemotingHelper;
  * @date 2019-07-03
  */
 public class OnewayProducer {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         // 实例化消息生产者Producer
         DefaultMQProducer producer = new DefaultMQProducer("ProducerGroupName");
         // 设置NameServer的地址
-        producer.setNamesrvAddr(JasyptUtil.mqAddr());
+        producer.setNamesrvAddr("ip....");
         producer.setInstanceName("OnewayProducer");
         // 启动Producer实例
         producer.start();

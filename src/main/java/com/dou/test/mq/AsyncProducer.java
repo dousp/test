@@ -1,6 +1,5 @@
 package com.dou.test.mq;
 
-import com.dou.test.utils.JasyptUtil;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
@@ -17,7 +16,7 @@ public class AsyncProducer {
         // 实例化消息生产者Producer
         DefaultMQProducer producer = new DefaultMQProducer("ProducerGroupName");
         // 设置NameServer的地址
-        producer.setNamesrvAddr(JasyptUtil.mqAddr());
+        producer.setNamesrvAddr("ip....");
         producer.setInstanceName("AsyncProducer");
         // 启动Producer实例
         producer.start();

@@ -1,6 +1,5 @@
 package com.dou.test.mq;
 
-import com.dou.test.utils.JasyptUtil;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyStatus;
@@ -21,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class ConsumerInOrder {
     public static void main(String[] args) throws Exception {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("please_rename_unique_group_name_3");
-        consumer.setNamesrvAddr(JasyptUtil.mqAddr());
+        consumer.setNamesrvAddr("ip....");
         /**
          * 设置Consumer第一次启动是从队列头部开始消费还是队列尾部开始消费<br>
          * 如果非第一次启动，那么按照上次消费的位置继续消费

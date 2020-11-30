@@ -10,14 +10,12 @@ import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
  */
 public class JasyptUtil {
 
-    // @Value("${jasypt.encryptor.password}")
-    // private String passWord;
 
     public static StringEncryptor stringEncryptor() {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
-        config.setPassword("password");
-        // config.setPassword(System.getenv("jasypt.encryptor.password"));
+        // 环境变量
+        config.setPassword(System.getenv("JASYPT_ENCRYPTOR_PASSWORD"));
         config.setAlgorithm("PBEWITHHMACSHA512ANDAES_256");
         config.setKeyObtentionIterations("1000");
         config.setPoolSize("1");
@@ -29,20 +27,16 @@ public class JasyptUtil {
         return encryptor;
     }
 
-    public static String encrypt(String string){
+    public static String encrypt(String string) {
         return stringEncryptor().encrypt(string);
     }
 
-    public static String decrypt(String string){
+    public static String decrypt(String string) {
         return stringEncryptor().decrypt(string);
     }
 
-    public static String mqAddr(){
-        return decrypt("SrfiYztMDAVftKTO3Mdgq735pJgBwPFVHf4GdJPDlbGdmJ9erKqmWpGiJli2D7R7");
-    }
-
     public static void main(String[] args) {
-        String str = encrypt("123456");
+        String str = encrypt("ddd");
         System.out.println(str);
         System.out.println(decrypt(str));
     }

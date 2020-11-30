@@ -9,20 +9,19 @@ spring:
         mongodb:
         uri: mongodb://test:123456@127.0.0.1:27017/test
 
-logging.level.org.springframework.boot.autoconfigure: ERROR
-
-secret:
-    property: ENC(dpl9kYQl7FmW3mbfl1E/6xZLgowsZIq0s/KI5NzZgBVdQkv4qpsFuSSP2Ort5Uo4)
-
-jasypt:
-    encryptor:
-        bean: encryptorBean
-        algorithm: PBEWITHHMACSHA512ANDAES_256
-        ivGeneratorClassname: org.jasypt.salt.RandomIVGenerator
-
-
-cxf:
-   path: /ws
 
 logging:
     config: classpath:logback-spring.xml
+
+# 自定义加密 ddd
+secret:
+    property: ENC(mwgA94JBb9h0EaV9hST02ZglcX6C9Qv/ZqplC0CNnjPNKNFZyjTdl9kjpxoWFe97)
+# 加密
+jasypt:
+    encryptor:
+        password: ${JASYPT_ENCRYPTOR_PASSWORD:}
+        algorithm: PBEWITHHMACSHA512ANDAES_256
+
+# web service tool cxf
+cxf:
+   path: /ws
