@@ -2,6 +2,11 @@ package com.dou.test.leetcode;
 
 import cn.hutool.core.util.NumberUtil;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 /**
  * 已知一个二维数组，其中存储了非负整数，我们要找到从左上角到右下角的一条路径，
  * 使得路径上的数字加在一起的和最小，求出这个最小值。
@@ -45,8 +50,51 @@ public class MinPathSum {
                 dp[i][j] = NumberUtil.min(dp[i][j - 1], dp[i - 1][j]) + grid[i][j];
             }
         }
+        printArr(grid);
         printArr(dp);
+        minPathArr(dp, grid);
         return dp[rowSize - 1][colSize - 1];
+    }
+
+    static void minPathArr(int[][] dp, int[][] arr) {
+        int rowSize = dp.length;
+        int colSize = dp[0].length;
+        List<Integer> list = new ArrayList<>();
+
+        int r = rowSize - 1;
+        int c = colSize - 1;
+        list.add(arr[r][c]);
+
+        while (r >= 0 && c >= 0) {
+
+            if (r == 0 && c > 0) {
+                list.add(arr[r][c - 1]);
+                c = c - 1;
+                continue;
+            }
+
+            if (c == 0 && r > 0) {
+                list.add(arr[r - 1][c]);
+                r = r - 1;
+                continue;
+            }
+
+            if (c > 0 && r > 0) {
+                if (dp[r][c - 1] == (dp[r][c] - arr[r][c])) {
+                    c = c - 1;
+                } else {
+                    r = r - 1;
+                }
+                list.add(arr[r][c]);
+            } else {
+                break;
+            }
+
+        }
+
+        Collections.reverse(list);
+        list.forEach(integer -> System.out.print(integer + " "));
+        System.out.println();
     }
 
     static void printArr(int[][] array) {
